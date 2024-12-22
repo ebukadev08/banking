@@ -1,32 +1,42 @@
 import HeaderBox from "@/components/HeaderBox";
+import RightSidebar from "@/components/RightSidebar";
 import { TotalBalanceBox } from "@/components/TotalBalanceBox";
+import { getLoggedInUser } from "@/lib/actions/user.actions";
 
+const Home = async () => {
+    const loggedIn = {firstName: "Ebuka", lastName: "Victor", email: "ebuka@gmail.com"}
 
-const Home = () => {
-    const loggedIn = { firstName : 'Ebuka' };
+    return (
+        <section className='home'>
+            <div className='home-content'>
+                <header className='home-header'>
+                    <HeaderBox
+                        type="greeting"
+                        title="Welcome"
+                        user={loggedIn?.firstName || "Guest"}
+                        subtext="Access and manage your account and transactions efficiently"
+                    />
 
-  return (
-    <section className='home'>
-        <div className='home-content'>
-            <header className='home-header'>
-                <HeaderBox
-                type="greeting"
-                title="Welcome"
-                user={loggedIn?.firstName || "Guest"}
-                subtext= "Access and manage your account and transaction efficiently"
-                />
+                    <TotalBalanceBox
+                        accounts={[]}
+                        totalBanks={1}
+                        totalCurrentBalance={3000.25}
+                    />
+                </header>
 
-                <TotalBalanceBox
-                accounts = {[]}
-                totalBanks= {1}
-                totalCurrentBalance={3000.25}
+                <div>RECENT TRANSACTION</div>
+            </div>
 
-                />
-            </header>
-            
-        </div>
-    </section>
-  )
-}
+            <RightSidebar
+                user={loggedIn}
+                transactions={[]}
+                banks={[
+                    { currentBalance: 400.4 },
+                    { currentBalance: 500.5 },
+                ]}
+            />
+        </section>
+    );
+};
 
-export default Home
+export default Home;
